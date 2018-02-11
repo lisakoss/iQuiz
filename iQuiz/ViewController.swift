@@ -28,7 +28,7 @@ class ViewController: UIViewController, UITableViewDataSource {
     }
     
     @IBAction func settingsButton(_ sender: Any) {
-        let alert = UIAlertController(title: "Alert", message: "Settings go here", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Alert", message: "Settings go here.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .`default`, handler: { _ in
         }))
         self.present(alert, animated: true, completion: nil)
