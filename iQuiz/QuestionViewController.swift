@@ -70,12 +70,14 @@ class QuestionViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        //catQuestion =
+
         questionLabel.text = category?.questions[questionNumber].question
         answer1.setTitle(category?.questions[questionNumber].answers[0], for: .normal)
         answer2.setTitle(category?.questions[questionNumber].answers[1], for: .normal)
         answer3.setTitle(category?.questions[questionNumber].answers[2], for: .normal)
         answer4.setTitle(category?.questions[questionNumber].answers[3], for: .normal)
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
