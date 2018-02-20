@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		42051DCC203B7D000011ACB2 /* AnswerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42051DCB203B7D000011ACB2 /* AnswerViewController.swift */; };
+		42225CE6203BAE8C00CB155A /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42225CE5203BAE8C00CB155A /* ResultViewController.swift */; };
 		424A7ECE203AB573009D6F1B /* QuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424A7ECD203AB573009D6F1B /* QuestionViewController.swift */; };
 		4263E138202C3D9000E53CFD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4263E137202C3D9000E53CFD /* AppDelegate.swift */; };
 		4263E13A202C3D9000E53CFD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4263E139202C3D9000E53CFD /* ViewController.swift */; };
@@ -39,6 +40,7 @@
 
 /* Begin PBXFileReference section */
 		42051DCB203B7D000011ACB2 /* AnswerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerViewController.swift; sourceTree = "<group>"; };
+		42225CE5203BAE8C00CB155A /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		424A7ECD203AB573009D6F1B /* QuestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionViewController.swift; sourceTree = "<group>"; };
 		4263E134202C3D9000E53CFD /* iQuiz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iQuiz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4263E137202C3D9000E53CFD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				42051DCB203B7D000011ACB2 /* AnswerViewController.swift */,
 				4288F6D4203ACE82004E45D9 /* Category.swift */,
 				4263E13B202C3D9000E53CFD /* Main.storyboard */,
+				42225CE5203BAE8C00CB155A /* ResultViewController.swift */,
 				424A7ECD203AB573009D6F1B /* QuestionViewController.swift */,
 				4288F6D6203B6F75004E45D9 /* Question.swift */,
 				4263E13E202C3D9000E53CFD /* Assets.xcassets */,
@@ -273,6 +276,7 @@
 			files = (
 				42051DCC203B7D000011ACB2 /* AnswerViewController.swift in Sources */,
 				4288F6D7203B6F75004E45D9 /* Question.swift in Sources */,
+				42225CE6203BAE8C00CB155A /* ResultViewController.swift in Sources */,
 				4263E13A202C3D9000E53CFD /* ViewController.swift in Sources */,
 				4263E138202C3D9000E53CFD /* AppDelegate.swift in Sources */,
 				424A7ECE203AB573009D6F1B /* QuestionViewController.swift in Sources */,

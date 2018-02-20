@@ -12,6 +12,7 @@ class QuestionViewController: UIViewController {
     var category:Category?
     var questionNumber:Int = 0
     var answer:Int = 0
+    var numberCorrect:Int = 0
     
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var questionLabel: UILabel!
@@ -61,6 +62,7 @@ class QuestionViewController: UIViewController {
         answerViewController.category = self.category
         answerViewController.questionNumber = self.questionNumber
         answerViewController.answer = self.answer
+        answerViewController.numberCorrect = self.numberCorrect
         self.present(answerViewController, animated: true, completion: nil)
     }
     

@@ -62,6 +62,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let mathCategory = Category(categoryTitle: "Mathematics", categoryDescription: "Test your knowledge at Mathematics!", questions:[mathQuestion1, mathQuestion2, mathQuestion3])
         let scienceCategory = Category(categoryTitle: "Science", categoryDescription: "Test your knowledge at Science!", questions: [scienceQuestion1])
         let marvelCategory = Category(categoryTitle: "Marvel Super Heroes", categoryDescription: "Test your knowledge at Marvel Super Heroes!", questions: [marvelQuestion1, marvelQuestion2])
+        
         quizCategories = [mathCategory, scienceCategory, marvelCategory]
     }
 
