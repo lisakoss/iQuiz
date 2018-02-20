@@ -19,6 +19,7 @@
 		4263E158202C3D9000E53CFD /* iQuizUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4263E157202C3D9000E53CFD /* iQuizUITests.swift */; };
 		4288F6D5203ACE82004E45D9 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4288F6D4203ACE82004E45D9 /* Category.swift */; };
 		4288F6D7203B6F75004E45D9 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4288F6D6203B6F75004E45D9 /* Question.swift */; };
+		42B0C65C203CAC3300ABD8B6 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 42B0C65B203CAC3300ABD8B6 /* Settings.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		4263E159202C3D9000E53CFD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4288F6D4203ACE82004E45D9 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		4288F6D6203B6F75004E45D9 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
+		42B0C65B203CAC3300ABD8B6 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 			children = (
 				4263E137202C3D9000E53CFD /* AppDelegate.swift */,
 				4263E139202C3D9000E53CFD /* ViewController.swift */,
+				42B0C65B203CAC3300ABD8B6 /* Settings.bundle */,
 				42051DCB203B7D000011ACB2 /* AnswerViewController.swift */,
 				4288F6D4203ACE82004E45D9 /* Category.swift */,
 				4263E13B202C3D9000E53CFD /* Main.storyboard */,
@@ -247,6 +250,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42B0C65C203CAC3300ABD8B6 /* Settings.bundle in Resources */,
 				4263E142202C3D9000E53CFD /* LaunchScreen.storyboard in Resources */,
 				4263E13F202C3D9000E53CFD /* Assets.xcassets in Resources */,
 				4263E13D202C3D9000E53CFD /* Main.storyboard in Resources */,

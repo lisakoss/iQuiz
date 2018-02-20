@@ -9,7 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    let quizJson = "http://tednewardsandbox.site44.com/questions.json"
+    var quizJson = "http://tednewardsandbox.site44.com/questions.json"
     var quizCategories: [Category] = []
     @IBOutlet weak var tableCategories: UITableView!
     
@@ -35,9 +35,19 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     @IBAction func settingsButton(_ sender: Any) {
-        let alert = UIAlertController(title: "Alert", message: "Settings go here.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .`default`, handler: { _ in
+        let alert = UIAlertController(title: "Data Retrieval", message: "Enter URL to retrieve data from:", preferredStyle: .alert)
+        alert.addTextField(configurationHandler: {(textField: UITextField!) in })
+        
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Check Now", comment: "Default action"), style: .default, handler: { (UIAlertAction) in
+            print("Done !!")
+            
+            print(alert.textFields![0].text!)
+            
+            self.quizJson = alert.textFields![0].text!
+            self.getUserDetails()
+            
         }))
+    
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -52,6 +62,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 do {
                     print("succesS")
                     let response = try JSONSerialization.jsonObject(with: data!, options: [])
+                    (response as AnyObject).write(toFile: NSHomeDirectory() + "/Documents/data", atomically: true)
+                    print(NSHomeDirectory() + "/Documents/data")
                     self.successGetTermsData(response: response)
                 } catch let error as NSError {
                     print(error)
