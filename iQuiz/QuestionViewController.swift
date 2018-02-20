@@ -76,8 +76,6 @@ class QuestionViewController: UIViewController {
         answer2.setTitle(category?.questions[questionNumber].answers[1], for: .normal)
         answer3.setTitle(category?.questions[questionNumber].answers[2], for: .normal)
         answer4.setTitle(category?.questions[questionNumber].answers[3], for: .normal)
-        
-        
     }
 
     override func didReceiveMemoryWarning() {
