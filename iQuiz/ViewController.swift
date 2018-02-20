@@ -28,9 +28,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let category = quizCategories[indexPath.row]
-        NSLog("User selected row at \(category)")
-        
         let questionViewController = self.storyboard?.instantiateViewController(withIdentifier: "QuestionViewController") as! QuestionViewController
         questionViewController.category = self.quizCategories[indexPath.row]
         self.present(questionViewController, animated: true, completion: nil)
