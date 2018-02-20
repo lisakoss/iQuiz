@@ -54,7 +54,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let mathQuestion2 = Question(question: "What is 2 + 7?", answers: ["2", "55", "9", "7"], correctAnswer: 2)
         let mathQuestion3 = Question(question: "What is 2 x 7?", answers: ["2", "14", "7", "9"], correctAnswer: 1)
         
-        let scienceQuestion1 = Question(question: "How many mitochondria are in a cell?", answers: ["1", "2", "12", "Depends on the complexity of the cell."], correctAnswer: 3)
+        let scienceQuestion1 = Question(question: "How many mitochondria are in a cell?", answers: ["1", "2", "12", "Depends on the complexity of the cell"], correctAnswer: 3)
         
         let marvelQuestion1 = Question(question: "The Fantastic Four have headquarters in what building?", answers: ["Stark Tower", "Fantastic Headquarters", "Baxter Building", "Xaiver Institute"], correctAnswer: 2)
         let marvelQuestion2 = Question(question: "Which super hero is green?", answers: ["Spiderman", "Superwoman", "Superman", "Hulk"], correctAnswer: 3)

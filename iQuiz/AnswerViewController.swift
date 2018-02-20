@@ -10,8 +10,8 @@ import UIKit
 
 class AnswerViewController: UIViewController {
     var category:Category?
-    var catQuestion:Question?
     var questionNumber:Int = 0
+    var answer:Int = 0
     
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var correctLabel: UILabel!
@@ -19,8 +19,21 @@ class AnswerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        questionLabel.text = category?.questions[questionNumber].question
+        let currQuestion = category?.questions[questionNumber]
+        let correctAnswer = currQuestion?.answers[(currQuestion?.correctAnswer)!]
+        let userInput = currQuestion?.answers[answer]
+        
+        questionLabel.text = currQuestion?.question
+        correctLabel.text = "The correct answer was: " + correctAnswer!
+        
+        if (correctAnswer == userInput) {
+            userAnswer.text = "Your answer of " + userInput! + " was correct!"
+            userAnswer.backgroundColor = UIColor.green
+        } else {
+            userAnswer.text = "Sorry " + userInput! + " is incorrect!"
+            userAnswer.backgroundColor = UIColor.red
+            userAnswer.textColor = UIColor.white
+        }
         // Do any additional setup after loading the view.
     }
 

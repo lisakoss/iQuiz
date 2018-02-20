@@ -10,8 +10,8 @@ import UIKit
 
 class QuestionViewController: UIViewController {
     var category:Category?
-    var catQuestion:Question?
     var questionNumber:Int = 0
+    var answer:Int = 0
     
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var questionLabel: UILabel!
@@ -20,28 +20,47 @@ class QuestionViewController: UIViewController {
     @IBOutlet weak var answer3: UIButton!
     @IBOutlet weak var answer4: UIButton!
     
-    @IBAction func chooseAnswer(_ sender: UIButton) {
-        print(sender.isSelected)
-        if(sender.isSelected) {
-            print("true")
-            answer1.backgroundColor = UIColor.black
-            answer2.backgroundColor = UIColor.black
-            answer3.backgroundColor = UIColor.black
-            answer4.backgroundColor = UIColor.black
-            sender.backgroundColor = UIColor.black
-            submitButton.isEnabled = false
-        } else {
-            answer1.backgroundColor = UIColor.black
-            answer2.backgroundColor = UIColor.black
-            answer3.backgroundColor = UIColor.black
-            answer4.backgroundColor = UIColor.black
-            sender.backgroundColor = UIColor.gray
-            submitButton.isEnabled = true
-        }
+    @IBAction func firstAnswer(_ sender: UIButton) {
+        answer2.backgroundColor = UIColor.black
+        answer3.backgroundColor = UIColor.black
+        answer4.backgroundColor = UIColor.black
+        sender.backgroundColor = UIColor.gray
+        answer = 0
+        submitButton.isEnabled = true
+    }
+
+    @IBAction func secondAnswer(_ sender: UIButton) {
+        answer1.backgroundColor = UIColor.black
+        answer3.backgroundColor = UIColor.black
+        answer4.backgroundColor = UIColor.black
+        sender.backgroundColor = UIColor.gray
+        answer = 1
+        submitButton.isEnabled = true
+    }
+    
+    @IBAction func thirdAnswer(_ sender: UIButton) {
+        answer1.backgroundColor = UIColor.black
+        answer2.backgroundColor = UIColor.black
+        answer4.backgroundColor = UIColor.black
+        sender.backgroundColor = UIColor.gray
+        answer = 2
+        submitButton.isEnabled = true
+    }
+    
+    @IBAction func fourthAnswer(_ sender: UIButton) {
+        answer1.backgroundColor = UIColor.black
+        answer2.backgroundColor = UIColor.black
+        answer3.backgroundColor = UIColor.black
+        sender.backgroundColor = UIColor.gray
+        answer = 3
+        submitButton.isEnabled = true
     }
     
     @IBAction func submit(_ sender: Any) {
         let answerViewController = self.storyboard?.instantiateViewController(withIdentifier: "AnswerViewController") as! AnswerViewController
+        answerViewController.category = self.category
+        answerViewController.questionNumber = self.questionNumber
+        answerViewController.answer = self.answer
         self.present(answerViewController, animated: true, completion: nil)
     }
     
