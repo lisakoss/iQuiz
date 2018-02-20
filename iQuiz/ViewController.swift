@@ -9,6 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    let quizJson = "http://tednewardsandbox.site44.com/questions.json"
     var quizCategories: [Category] = []
     @IBOutlet weak var tableCategories: UITableView!
     
@@ -39,6 +40,58 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }))
         self.present(alert, animated: true, completion: nil)
     }
+    
+    //Use URLSession methods
+    func getUserDetails(){
+        let url = URL(string: quizJson)
+        URLSession.shared.dataTask(with:url!) { (data, response, error) in
+            if error != nil {
+                print(error ?? "")
+                print("error 1")
+            } else {
+                do {
+                    print("succesS")
+                    let response = try JSONSerialization.jsonObject(with: data!, options: [])
+                    self.successGetTermsData(response: response)
+                } catch let error as NSError {
+                    print(error)
+                    print("error 2")
+                }
+            }
+            
+            DispatchQueue.main.async{
+                self.tableCategories.reloadData()
+            }
+            }.resume()
+    }
+    
+    func successGetTermsData(response: Any){
+        let arrayOfDetails = response as? [[String: Any]]
+        // Do Something with the Array
+        //Here you will be get Array of User Related Details
+        
+        for category in arrayOfDetails! {
+            var questions:[Question] = []
+            var answers:[String] = []
+    
+            let title = category["title"] as! String
+            let description = category["desc"] as! String
+            let questionContents = category["questions"] as! [[String: Any]]
+            
+            for question in questionContents {
+                let text = question["text"] as! String
+                let correctAnswer = question["answer"] as! String
+
+                answers = question["answers"] as! [String]
+
+                let finalQuestion = Question(question: text, answers: answers, correctAnswer: Int(correctAnswer)!)
+                questions.append(finalQuestion)
+            }
+            
+            let finalCategory = Category(categoryTitle: title, categoryDescription: description, questions:questions)
+            quizCategories.append(finalCategory)
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,21 +99,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         tableCategories.dataSource = self
         tableCategories.delegate = self
         tableCategories.tableFooterView = UIView() // makes the table the height of the view
-        
-        let mathQuestion1 = Question(question: "What is 2 + 2?", answers: ["4", "5", "6", "7"], correctAnswer: 0)
-        let mathQuestion2 = Question(question: "What is 2 + 7?", answers: ["2", "55", "9", "7"], correctAnswer: 2)
-        let mathQuestion3 = Question(question: "What is 2 x 7?", answers: ["2", "14", "7", "9"], correctAnswer: 1)
-        
-        let scienceQuestion1 = Question(question: "How many mitochondria are in a cell?", answers: ["1", "2", "12", "Depends on the complexity of the cell"], correctAnswer: 3)
-        
-        let marvelQuestion1 = Question(question: "The Fantastic Four have headquarters in what building?", answers: ["Stark Tower", "Fantastic Headquarters", "Baxter Building", "Xaiver Institute"], correctAnswer: 2)
-        let marvelQuestion2 = Question(question: "Which super hero is green?", answers: ["Spiderman", "Superwoman", "Superman", "Hulk"], correctAnswer: 3)
-        
-        let mathCategory = Category(categoryTitle: "Mathematics", categoryDescription: "Test your knowledge at Mathematics!", questions:[mathQuestion1, mathQuestion2, mathQuestion3])
-        let scienceCategory = Category(categoryTitle: "Science", categoryDescription: "Test your knowledge at Science!", questions: [scienceQuestion1])
-        let marvelCategory = Category(categoryTitle: "Marvel Super Heroes", categoryDescription: "Test your knowledge at Marvel Super Heroes!", questions: [marvelQuestion1, marvelQuestion2])
-        
-        quizCategories = [mathCategory, scienceCategory, marvelCategory]
+
+        getUserDetails()
     }
 
     override func didReceiveMemoryWarning() {

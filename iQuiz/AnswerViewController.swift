@@ -39,7 +39,7 @@ class AnswerViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         let currQuestion = category?.questions[questionNumber]
-        let correctAnswer = currQuestion?.answers[(currQuestion?.correctAnswer)!]
+        let correctAnswer = currQuestion?.answers[((currQuestion?.correctAnswer)! - 1)]
         let userInput = currQuestion?.answers[answer]
         
         questionLabel.text = currQuestion?.question
