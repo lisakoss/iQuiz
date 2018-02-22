@@ -60,7 +60,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.present(alert, animated: true, completion: nil)
     }
     
-    //Use URLSession methods
+    // Use URLSession methods
     // referenced from https://stackoverflow.com/questions/42130002/post-data-and-get-data-from-json-url-in-swift
     // referenced from https://www.simplifiedios.net/swift-json-tutorial/
     func getUserDetails(){
@@ -69,6 +69,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             URLSession.shared.dataTask(with:url!) { (data, response, error) in
                 if error != nil {
                     print(error ?? "")
+                    let alert = UIAlertController(title: "Error", message: "Cannot retrieve JSON file.", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: NSLocalizedString("Okay", comment: "Default action"), style: .default, handler: nil ))
+                    self.present(alert, animated: true, completion: nil)
                 } else {
                     do {
                         let response = try JSONSerialization.jsonObject(with: data!, options: []) as? NSArray
@@ -79,6 +82,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                         self.successGetTermsData(response: response!)
                     } catch let error as NSError {
                         print(error)
+                        
+                        let alert = UIAlertController(title: "Error", message: "Please provide a valid JSON file.", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: NSLocalizedString("Okay", comment: "Default action"), style: .default, handler: nil ))
+                        self.present(alert, animated: true, completion: nil)
                     }
                 }
                 
