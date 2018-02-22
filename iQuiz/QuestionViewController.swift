@@ -71,7 +71,7 @@ class QuestionViewController: UIViewController {
 
         // Do any additional setup after loading the view.
 
-        questionLabel.text = category?.questions[questionNumber].question
+        questionLabel.text = String(questionNumber + 1) + ") " + (category?.questions[questionNumber].question)!
         answer1.setTitle(category?.questions[questionNumber].answers[0], for: .normal)
         answer2.setTitle(category?.questions[questionNumber].answers[1], for: .normal)
         answer3.setTitle(category?.questions[questionNumber].answers[2], for: .normal)
