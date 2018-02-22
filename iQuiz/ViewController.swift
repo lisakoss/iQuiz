@@ -36,22 +36,32 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBAction func settingsButton(_ sender: Any) {
         let alert = UIAlertController(title: "Data Retrieval", message: "Enter URL to retrieve data from:", preferredStyle: .alert)
+        let defaults = UserDefaults.standard
+        
         alert.addTextField(configurationHandler: {(textField: UITextField!) in })
         
         alert.addAction(UIAlertAction(title: NSLocalizedString("Check Now", comment: "Default action"), style: .default, handler: { (UIAlertAction) in
-            print("Done !!")
-            
             print(alert.textFields![0].text!)
             
+            self.quizCategories = []
             self.quizJson = alert.textFields![0].text!
+            defaults.set(self.quizJson, forKey: "json_url")
             self.getUserDetails()
-            
         }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        if let quizUrl = defaults.string(forKey: "json_url") {
+            alert.textFields![0].text! = quizUrl
+        } else {
+            alert.textFields![0].text! = ""
+        }
     
         self.present(alert, animated: true, completion: nil)
     }
     
     //Use URLSession methods
+    // referenced from https://stackoverflow.com/questions/42130002/post-data-and-get-data-from-json-url-in-swift
     func getUserDetails(){
         let url = URL(string: quizJson)
         URLSession.shared.dataTask(with:url!) { (data, response, error) in
@@ -61,10 +71,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             } else {
                 do {
                     print("succesS")
-                    let response = try JSONSerialization.jsonObject(with: data!, options: [])
-                    (response as AnyObject).write(toFile: NSHomeDirectory() + "/Documents/data", atomically: true)
-                    print(NSHomeDirectory() + "/Documents/data")
-                    self.successGetTermsData(response: response)
+                    let response = try JSONSerialization.jsonObject(with: data!, options: []) as? NSArray
+                    let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("questions.json")
+                    try response?.write(to: path)
+                    //(response as AnyObject).write(toFile: NSHomeDirectory() + "/Documents/data", atomically: true)
+                    print(NSHomeDirectory())
+                    self.successGetTermsData(response: response!)
                 } catch let error as NSError {
                     print(error)
                     print("error 2")
@@ -77,7 +89,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }.resume()
     }
     
-    func successGetTermsData(response: Any){
+    func successGetTermsData(response: NSArray){
         let arrayOfDetails = response as? [[String: Any]]
         // Do Something with the Array
         //Here you will be get Array of User Related Details
@@ -104,6 +116,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             quizCategories.append(finalCategory)
         }
     }
+    
+    // referenced from: https://makeapppie.com/2016/03/14/using-settings-bundles-with-swift/
+    func registerSettingsBundle(){
+        let appDefaults = [String:AnyObject]()
+        UserDefaults.standard.register(defaults: appDefaults)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -112,6 +130,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         tableCategories.delegate = self
         tableCategories.tableFooterView = UIView() // makes the table the height of the view
 
+        registerSettingsBundle()
+        if(UserDefaults.standard.string(forKey: "json_url") != nil) {
+            quizJson = UserDefaults.standard.string(forKey: "json_url")!
+        }
+        
         getUserDetails()
     }
 
