@@ -62,38 +62,43 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     //Use URLSession methods
     // referenced from https://stackoverflow.com/questions/42130002/post-data-and-get-data-from-json-url-in-swift
+    // referenced from https://www.simplifiedios.net/swift-json-tutorial/
     func getUserDetails(){
-        let url = URL(string: quizJson)
-        URLSession.shared.dataTask(with:url!) { (data, response, error) in
-            if error != nil {
-                print(error ?? "")
-                print("error 1")
-            } else {
-                do {
-                    print("succesS")
-                    let response = try JSONSerialization.jsonObject(with: data!, options: []) as? NSArray
-                    let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("questions.json")
-                    try response?.write(to: path)
-                    //(response as AnyObject).write(toFile: NSHomeDirectory() + "/Documents/data", atomically: true)
-                    print(NSHomeDirectory())
-                    self.successGetTermsData(response: response!)
-                } catch let error as NSError {
-                    print(error)
-                    print("error 2")
+        if Reachability.isConnectedToNetwork() == true {
+            let url = URL(string: quizJson)
+            URLSession.shared.dataTask(with:url!) { (data, response, error) in
+                if error != nil {
+                    print(error ?? "")
+                } else {
+                    do {
+                        let response = try JSONSerialization.jsonObject(with: data!, options: []) as? NSArray
+                        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("questions.json")
+                        try response?.write(to: path)
+                        //(response as AnyObject).write(toFile: NSHomeDirectory() + "/Documents/data", atomically: true)
+                        print(NSHomeDirectory())
+                        self.successGetTermsData(response: response!)
+                    } catch let error as NSError {
+                        print(error)
+                    }
                 }
-            }
-            
+                
+                DispatchQueue.main.async{
+                    self.tableCategories.reloadData()
+                }
+                }.resume()
+        } else {
             DispatchQueue.main.async{
-                self.tableCategories.reloadData()
+                let alert = UIAlertController(title: "No Internet Connection", message: "Please reconnect to the internet.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: NSLocalizedString("Okay", comment: "Default action"), style: .default, handler: nil ))
+                
+                self.present(alert, animated: true, completion: nil)
             }
-            }.resume()
+        }
     }
     
     func successGetTermsData(response: NSArray){
         let arrayOfDetails = response as? [[String: Any]]
-        // Do Something with the Array
-        //Here you will be get Array of User Related Details
-        
+
         for category in arrayOfDetails! {
             var questions:[Question] = []
             var answers:[String] = []
