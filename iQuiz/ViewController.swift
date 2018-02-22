@@ -74,7 +74,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                         let response = try JSONSerialization.jsonObject(with: data!, options: []) as? NSArray
                         let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("questions.json")
                         try response?.write(to: path)
-                        //(response as AnyObject).write(toFile: NSHomeDirectory() + "/Documents/data", atomically: true)
+
                         print(NSHomeDirectory())
                         self.successGetTermsData(response: response!)
                     } catch let error as NSError {
@@ -90,8 +90,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             DispatchQueue.main.async{
                 let alert = UIAlertController(title: "No Internet Connection", message: "Please reconnect to the internet.", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: NSLocalizedString("Okay", comment: "Default action"), style: .default, handler: nil ))
-                
                 self.present(alert, animated: true, completion: nil)
+                
+                let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("questions.json")
+                let localJson = NSArray(contentsOf: path)
+                self.successGetTermsData(response: localJson!)
             }
         }
     }
