@@ -41,8 +41,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         alert.addTextField(configurationHandler: {(textField: UITextField!) in })
         
         alert.addAction(UIAlertAction(title: NSLocalizedString("Check Now", comment: "Default action"), style: .default, handler: { (UIAlertAction) in
-            print(alert.textFields![0].text!)
-            
             self.quizCategories = []
             self.quizJson = alert.textFields![0].text!
             defaults.set(self.quizJson, forKey: "json_url")
@@ -77,12 +75,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                         let response = try JSONSerialization.jsonObject(with: data!, options: []) as? NSArray
                         let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("questions.json")
                         try response?.write(to: path)
-
-                        print(NSHomeDirectory())
                         self.successGetTermsData(response: response!)
                     } catch let error as NSError {
                         print(error)
-                        
                         let alert = UIAlertController(title: "Error", message: "Please provide a valid JSON file.", preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: NSLocalizedString("Okay", comment: "Default action"), style: .default, handler: nil ))
                         self.present(alert, animated: true, completion: nil)
